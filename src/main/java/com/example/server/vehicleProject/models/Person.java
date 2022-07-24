@@ -4,7 +4,6 @@ import java.util.UUID;
 
 import javax.persistence.*;
 
-
 @Entity()
 public class Person {
 
@@ -14,7 +13,7 @@ public class Person {
 
     @Column
     private String nome;
-    @Column
+    @Column(name = "cpf", unique = true, length = 11)
     private String cpf;
     @Column
     private String dob;

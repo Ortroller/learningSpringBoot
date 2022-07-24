@@ -24,4 +24,40 @@ public class OwnerRegistry {
 
     @OneToOne(cascade = CascadeType.ALL, optional = false)
     private Vehicle vehicle;
+
+    public OwnerRegistry(Person owner, Vehicle vehicle) {
+        this.owner = owner;
+        this.vehicle = vehicle;
+    }
+
+    public UUID getId() {
+        return id;
+    }
+
+    public void setId(UUID id) {
+        this.id = id;
+    }
+
+    public Person getOwner() {
+        return owner;
+    }
+
+    public void setOwner(Person owner) {
+        this.owner = owner;
+    }
+
+    public Vehicle getVehicle() {
+        return vehicle;
+    }
+
+    public void setVehicle(Vehicle vehicle) {
+        this.vehicle = vehicle;
+    }
+
+    @Override
+    public String toString() {
+        return "OwnerRegistry [id=" + id + ", owner=" + owner + ", vehicle=" + vehicle + "]";
+    }
+
+    
 }
