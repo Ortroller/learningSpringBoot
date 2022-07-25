@@ -34,6 +34,9 @@ public class Vehicle {
         this.cc = cc;
     }
 
+    public Vehicle() {
+    }
+
     public Vehicle(String licensePlate, String chassis, String modelName) {
         this.licensePlate = licensePlate;
         this.chassis = chassis;
