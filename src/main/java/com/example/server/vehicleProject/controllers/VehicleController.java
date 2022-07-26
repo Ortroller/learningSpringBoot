@@ -1,18 +1,13 @@
 package com.example.server.vehicleProject.controllers;
 
 import java.util.List;
+import java.util.UUID;
 
 import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
-import org.springframework.web.bind.annotation.ExceptionHandler;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseStatus;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import com.example.server.vehicleProject.models.Vehicle;
 import com.example.server.vehicleProject.services.VehicleService;
@@ -44,7 +39,7 @@ public class VehicleController {
     }
 
     @RequestMapping(path="/", method=RequestMethod.PUT)
-    public Vehicle requestMethodName(@RequestBody Vehicle v, HttpServletResponse response) throws NullPointerException{
+    public Vehicle updateVehicle(@RequestBody Vehicle v, HttpServletResponse response) throws NullPointerException{
         Vehicle vehicle = service.updateVehicle(v);
 
         if(vehicle == null){
@@ -56,10 +51,40 @@ public class VehicleController {
         return vehicle;
     }
     
+
+    @RequestMapping(path = "/", method = RequestMethod.DELETE, produces = "application/json")
+    public String deleteVehicle(@RequestParam UUID id, HttpServletResponse response){
+
+        if(id == null){
+            response.setStatus(400); // Bad Request
+            return def_statusMessage("id must be informed");
+        }
+        boolean statusService = service.deleteVehicleByID(id);
+
+        if (statusService){
+            response.setStatus(200);
+            return def_statusMessage("Deleted");
+        }else{
+            response.setStatus(404);
+            return def_statusMessage("Not Deleted");
+        }
+
+    }
+    
     @ResponseStatus(code = HttpStatus.INTERNAL_SERVER_ERROR)
     @ExceptionHandler(DataIntegrityViolationException.class)
     public String nullHandler(DataIntegrityViolationException ex){
         return ex.getMessage();
+    }
+
+    @ResponseStatus(code = HttpStatus.INTERNAL_SERVER_ERROR)
+    @ExceptionHandler(Exception.class)
+    public String excHandler(Exception ex){
+        return ex.getMessage();
+    }
+
+    private String def_statusMessage(String statusMessage){
+        return "{status :" + statusMessage + "}";
     }
     
 }

@@ -8,6 +8,7 @@ import com.example.server.vehicleProject.models.Vehicle;
 import com.example.server.vehicleProject.repository.VehicleRepo;
 
 import java.util.List;
+import java.util.UUID;
 
 @Service
 public class VehicleService {
@@ -53,6 +54,18 @@ public class VehicleService {
         }
 
         return inst;
+    }
+
+    @Transactional
+    public boolean deleteVehicleByID(UUID id){
+        
+        if (repository.findById(id).isEmpty()){
+            return false;
+        }
+
+        repository.deleteById(id);
+
+        return true;
     }
     
 }
