@@ -24,6 +24,10 @@ public class VehicleService {
         return repository.findByLicensePlate(license);
     }
 
+    public Vehicle getVehicleById(UUID id){
+        return repository.findById(id).get();
+    }
+
     @Transactional
     public String addVehicle(Vehicle vehicle){
         String message;

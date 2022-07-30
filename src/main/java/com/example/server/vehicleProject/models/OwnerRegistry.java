@@ -2,11 +2,12 @@ package com.example.server.vehicleProject.models;
 
 import java.util.UUID;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
@@ -19,10 +20,12 @@ public class OwnerRegistry {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private UUID id;
 
-    @OneToOne(cascade = CascadeType.ALL, optional = false)
+    @ManyToOne(optional = false)
+    @JoinColumn(name = "owner_id", referencedColumnName = "id")
     private Person owner;
 
-    @OneToOne(cascade = CascadeType.ALL, optional = false)
+    @OneToOne(optional = false)
+    @JoinColumn(name = "vehicle_id", referencedColumnName = "id")
     private Vehicle vehicle;
 
     public OwnerRegistry(Person owner, Vehicle vehicle) {

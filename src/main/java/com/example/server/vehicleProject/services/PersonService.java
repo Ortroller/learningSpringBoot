@@ -1,6 +1,7 @@
 package com.example.server.vehicleProject.services;
 
 import java.util.List;
+import java.util.UUID;
 
 import javax.persistence.EntityNotFoundException;
 
@@ -27,6 +28,10 @@ public class PersonService {
 
     public void addPerson(Person person) {
         personRepository.save(person);
+    }
+
+    public Person getPersonByID(UUID id){
+        return personRepository.findById(id).get();
     }
 
     @Transactional

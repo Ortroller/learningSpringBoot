@@ -5,14 +5,14 @@ import com.example.server.vehicleProject.models.Person;
 import com.example.server.vehicleProject.models.Vehicle;
 import com.example.server.vehicleProject.repository.OwnerRepo;
 
-import net.bytebuddy.implementation.bytecode.Throw;
-
 import java.util.List;
 import java.util.UUID;
 
+import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 
+@Service
 public class OwnerService {
 
     private OwnerRepo repository;
@@ -27,8 +27,8 @@ public class OwnerService {
     }
 
     @Transactional
-    public void createRegistry(OwnerRegistry reg){
-        repository.save(reg);
+    public OwnerRegistry createRegistry(OwnerRegistry reg){
+        return repository.save(reg);
     }
 
     public List<OwnerRegistry> getAllRegistryByOwner(Person owner){
