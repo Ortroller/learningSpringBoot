@@ -9,3 +9,12 @@ Onde a tabela *Propriedade* é um relacional de *Pessoa* com *Veículo*, como um
 pessoa pode ter mais de um veículo.
 
 # Rotas e Métodos
+
+### server/pessoa/  
+  
+  Rota CRUD para a tabela **pessoa** aceitando todos os métodos GET, POST, DELETE e PATCH.
+  
+  Dados dessa tabela são:
+  * Nome
+  * CPF
+  * Data de nascimento (dob)
