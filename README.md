@@ -1,5 +1,5 @@
 # learningSpringBoot
-Um projeto simples para aprendizado de uma API em Java Spring Boot usando Postgres que basicamente consistem em um CRUD de 3 tabelas, sendo elas: 
+Um projeto simples para aprendizado de uma API em Java Spring Boot usando Postgres que basicamente consiste em um CRUD de 3 tabelas, sendo elas: 
 
 * Pessoa
 * Veículo
