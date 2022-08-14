@@ -40,21 +40,27 @@ public class OwnerService {
     }
 
     @Transactional
-    public void deleteRegistry(UUID id){
+    public boolean deleteRegistry(UUID id){
+
+        if (repository.findById(id).isEmpty()){
+            return false;
+        }
+
         repository.deleteById(id);
+        return true;
     }
 
     @Transactional
-    public boolean updateRegistry(OwnerRegistry reg){
+    public OwnerRegistry updateRegistry(OwnerRegistry reg){
         OwnerRegistry p = repository.findById(reg.getId()).get();
 
         if(p == null){
-            return false;
+            return null;
         }
 
         p.setOwner(reg.getOwner());
         p.setVehicle(reg.getVehicle());
         
-        return true;
+        return p;
     }
 }

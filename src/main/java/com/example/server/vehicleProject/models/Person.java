@@ -12,7 +12,7 @@ public class Person {
     private UUID id; // PK com geracao automatica no banco
 
     @Column
-    private String nome;
+    private String name;
     @Column(name = "cpf", unique = true, length = 11)
     private String cpf;
     @Column
@@ -21,8 +21,8 @@ public class Person {
     public Person() {
     }
 
-    public Person(String nome, String cpf, String dob) {
-        this.nome = nome;
+    public Person(String name, String cpf, String dob) {
+        this.name = name;
         this.cpf = cpf;
         this.dob = dob;
     }
@@ -34,10 +34,10 @@ public class Person {
         this.id = id;
     }
     public String getNome() {
-        return nome;
+        return name;
     }
-    public void setNome(String nome) {
-        this.nome = nome;
+    public void setNome(String name) {
+        this.name = name;
     }
     public String getCpf() {
         return cpf;
@@ -54,7 +54,7 @@ public class Person {
 
     @Override
     public String toString() {
-        return "Pessoa [cpf=" + cpf + ", dob=" + dob + ", id=" + id + ", nome=" + nome + "]";
+        return "Pessoa [cpf=" + cpf + ", dob=" + dob + ", id=" + id + ", nome=" + name + "]";
     }
     
     

@@ -35,24 +35,21 @@ public class PersonService {
     }
 
     @Transactional
-    public String deletePersonbyCPF(String cpf){
-        String name;
+    public boolean deletePersonbyCPF(String cpf){
         
         try{ // Verificando se existe uma pessoa com o uuid informado.
             Person p = personRepository.findByCpf(cpf);
-            name = p.getNome();
             personRepository.delete(p);
         }catch(EntityNotFoundException ex){
-            name = "RUIM";
+            return false;
         }
-
-        return name;
+        return true;
     }
 
-    @Transactional // E bom ter em todos os metodos que envolvem transaca com o banco?
+    @Transactional
     public String deletePersonsByNameDBG(String name){
 
-        List<Person> pQuerryList = personRepository.findByNome(name);
+        List<Person> pQuerryList = personRepository.findByName(name);
         int quantity = pQuerryList.size();
         for(Person p : pQuerryList){
             personRepository.delete(p);
