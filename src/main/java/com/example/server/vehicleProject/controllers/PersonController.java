@@ -2,6 +2,8 @@ package com.example.server.vehicleProject.controllers;
 
 import java.util.List;
 
+import javax.servlet.http.HttpServletResponse;
+
 // import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -38,12 +40,14 @@ public class PersonController {
     }
 
     @RequestMapping(value="/", method=RequestMethod.DELETE)
-    public String deletePerson(@RequestParam String cpf) {
-        String name;
+    public void deletePerson(@RequestParam String cpf, HttpServletResponse response) {
 
-        name = personservice.deletePersonbyCPF(cpf);
-
-        return "deleted " + name; 
+        if(personservice.deletePersonbyCPF(cpf)){
+            response.setStatus(200);
+            return;
+        } 
+        
+    response.setStatus(500);
     }
     
     @RequestMapping(value="nome/", method=RequestMethod.DELETE)

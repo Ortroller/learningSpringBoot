@@ -15,6 +15,6 @@ public interface PersonRepo extends JpaRepository<Person, UUID>{
     
     public Person findByCpf(String cpf);
 
-    public List<Person> findByNome(String nome);
+    public List<Person> findByName(String name);
     
 }

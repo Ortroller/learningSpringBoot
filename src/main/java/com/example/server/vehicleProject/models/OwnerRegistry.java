@@ -61,6 +61,5 @@ public class OwnerRegistry {
     public String toString() {
         return "OwnerRegistry [id=" + id + ", owner=" + owner + ", vehicle=" + vehicle + "]";
     }
-
     
 }

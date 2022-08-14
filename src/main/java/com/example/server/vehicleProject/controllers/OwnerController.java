@@ -7,6 +7,7 @@ import javax.servlet.http.HttpServletResponse;
 import org.apache.tomcat.util.json.JSONParser;
 import org.apache.tomcat.util.json.ParseException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -23,7 +24,7 @@ import java.util.LinkedHashMap;
 import java.util.List;
 
 @RestController
-@RequestMapping(value = "owner")
+@RequestMapping(value = "propriedade")
 public class OwnerController {
     
     @Autowired
@@ -50,21 +51,32 @@ public class OwnerController {
         Person pTemp = pService.getPersonByID(UUID.fromString(personID));
         Vehicle vTemp = vService.getVehicleById(UUID.fromString(vehicleID));
 
-        // System.out.println(pTemp.getNome());
-        // System.out.println(vTemp.getModelName());
         if(pTemp == null || vTemp == null){
             // se algum nao for encontrado
             response.setStatus(401);
             return null;
         }
         return service.createRegistry(new OwnerRegistry(pTemp, vTemp));
-        // return null;
-
     }
 
     @RequestMapping(path = "/", method = RequestMethod.GET)
     public List<OwnerRegistry> listOwnerRecords(){
         return service.allRegistry();
     }
+
+    @RequestMapping(path = "/{id}", method = RequestMethod.DELETE)
+    public void deleteRegistry(@PathVariable("id") UUID id, HttpServletResponse response){
+
+        if (service.deleteRegistry(id)){
+            response.setStatus(200);
+            return;
+        }
+        response.setStatus(500);
+    }
+
+    // @RequestMapping(path = "/{id}", method = RequestMethod.PUT)
+    // public OwnerRegistry updateRegistry(@PathVariable("id") UUID id ){
+    //     return service.updateRegistry(reg);
+    // }
     
 }
